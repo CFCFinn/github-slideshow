@@ -1,13 +1,517 @@
----
-layout: presentation
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Human Equation in Whole Person Health'care | Benefit Intelligence</title>
+  <style>
+    :root {
+      --teal: #1a7a7a;
+      --teal-dark: #0d5e5e;
+      --orange: #e8830c;
+      --orange-light: #f5a623;
+      --text-dark: #2c2c2c;
+      --text-body: #3a3a3a;
+      --bg-light: #f9f9f9;
+      --white: #ffffff;
+    }
 
-{% for post in site.posts reversed %}
-	{% include slide.html %}
-	<div class="page-break"></div>
-{% endfor %}
-{% unless site.simple-slideshow %}
-{% if site.overview %}
-<section id="overview" class="step" {% for attr in site.overview-data %} data-{{attr[0]}}="{{attr[1]}}"{% endfor %}></section>
-{% endif %}
-{% endunless %}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-body);
+      line-height: 1.7;
+      background: var(--white);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      color: var(--white);
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.3;
+    }
+
+    /* Utility */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 64px 0;
+    }
+
+    section:nth-child(even) {
+      background: var(--bg-light);
+    }
+
+    h2 {
+      color: var(--teal);
+      font-size: 1.9rem;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      color: var(--teal);
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    /* Storm Section */
+    .storm .content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .highlight-text {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    /* Formula Box */
+    .formula-box {
+      background: var(--teal);
+      color: var(--white);
+      padding: 14px 24px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 20px 0 24px;
+      letter-spacing: 1px;
+    }
+
+    /* Variable List */
+    .var-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .var-list li {
+      margin-bottom: 6px;
+      padding: 8px 14px;
+      border-radius: 4px;
+    }
+
+    .var-list li .var-letter {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 3px;
+      margin-right: 10px;
+      min-width: 36px;
+      text-align: center;
+    }
+
+    .var-list li .var-letter.rhc {
+      background: var(--orange);
+    }
+
+    .formula-explanation {
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--bg-light);
+      border-left: 4px solid var(--teal);
+      border-radius: 4px;
+    }
+
+    .formula-explanation p {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .formula-explanation p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* RHC Section */
+    .rhc-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-body);
+      margin-bottom: 4px;
+    }
+
+    .rhc-components {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .rhc-card {
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .rhc-card .card-header {
+      background: var(--orange);
+      color: var(--white);
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .rhc-card .card-body {
+      padding: 14px 16px;
+      background: var(--white);
+      border: 1px solid #e0e0e0;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      font-size: 0.95rem;
+    }
+
+    .individual-formula {
+      margin-top: 40px;
+      padding: 24px;
+      background: var(--white);
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+    }
+
+    .individual-formula .formula-box {
+      background: var(--text-dark);
+      font-size: 1rem;
+    }
+
+    /* Change Management Section */
+    .three-layers {
+      counter-reset: layer;
+      margin-top: 24px;
+    }
+
+    .layer {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+
+    .layer-number {
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--teal);
+      line-height: 1;
+      min-width: 36px;
+    }
+
+    .layer-content h4 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--teal-dark);
+      margin-bottom: 6px;
+    }
+
+    .layer-content p {
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .capacity-callout {
+      background: var(--bg-light);
+      border: 1px solid #e0e0e0;
+      padding: 24px;
+      border-radius: 6px;
+      margin: 32px 0;
+      text-align: center;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-body);
+    }
+
+    /* Closing Section */
+    .closing h2 {
+      margin-bottom: 20px;
+    }
+
+    .closing-item {
+      margin-bottom: 20px;
+    }
+
+    .closing-item strong {
+      font-style: italic;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: var(--teal);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      max-width: 420px;
+    }
+
+    /* Contact */
+    .contact-section {
+      background: var(--teal-dark);
+      color: var(--white);
+      padding: 48px 0;
+    }
+
+    .contact-grid {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .contact-grid .cta-banner {
+      flex-shrink: 0;
+    }
+
+    .contact-info h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+      color: var(--orange-light);
+    }
+
+    .contact-info p {
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    .contact-info a {
+      color: var(--orange-light);
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 3px solid var(--orange);
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    footer .brand {
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .rhc-components {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>THE HUMAN EQUATION IN WHOLE PERSON HEALTH'CARE</h1>
+  </div>
+
+  <!-- The Storm Around Us -->
+  <section class="storm">
+    <div class="container">
+      <h2>THE STORM AROUND US</h2>
+      <div class="content-grid">
+        <div>
+          <p>Whole Person Health'care (WPH'c) is under growing distress today from compounding pressures. Costs continue to rise, therapies grow more complex, and people are carrying heavier mental, physical, and financial burdens into both their workplaces and daily lives. Meanwhile, provider and administrative hurdles are growing, and cultural norms encourage individuals to make more harmful than healthy choices.</p>
+          <p>This affects every level of life, from the individual to families, communities and organizations. This is not the right way, nobody has the solution.</p>
+          <p class="highlight-text">These issues don't simply add together &mdash; they multiply. The result is the Total Health Burden (THB).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THB Formula -->
+  <section>
+    <div class="container">
+      <h2>THE TOTAL HEALTH BURDEN (THB) FORMULA</h2>
+      <p>The Formula:</p>
+      <div class="formula-box">THB = (R &times; C &times; T &times; V &times; M &times; N &times; A &times; P) &divide; RHC</div>
+
+      <p>Where:</p>
+      <ul class="var-list">
+        <li><span class="var-letter">R</span> Rising risk (chronic conditions, lifestyle, aging)</li>
+        <li><span class="var-letter">C</span> Rising costs (inflation, specialty drugs, procedures)</li>
+        <li><span class="var-letter">T</span> Emerging therapies (specialty &amp; complex treatments)</li>
+        <li><span class="var-letter">V</span> Volume of unhealthy individuals</li>
+        <li><span class="var-letter">M</span> Mental health decline</li>
+        <li><span class="var-letter">N</span> Norms &amp; peer pressures (unhealthy choices normalized)</li>
+        <li><span class="var-letter">A</span> Administrative burdens (friction, complexity, red tape)</li>
+        <li><span class="var-letter">P</span> Provider supply shortages</li>
+        <li><span class="var-letter rhc">RHC</span> Resilient Health Capacity (the true counterweight)</li>
+      </ul>
+
+      <div class="formula-explanation">
+        <p><strong>These are not isolated issues, they multiply.</strong> A workforce with more chronic risk will generate more volume, which amplifies costs.</p>
+        <p>New therapies improve survival but inflate spending. Administrative hurdles block timely care and frustrate employees, and as provider supply shrinks, the weight of all other factors becomes heavier.</p>
+        <p>For HR leaders, this storm means more time fixing problems than guiding people. For employees, it means more reasons to disengage, delay care, and resign themselves to poor health.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resilient Health Capacity -->
+  <section>
+    <div class="container">
+      <p class="rhc-subtitle">THE COUNTERWEIGHT:</p>
+      <h2><strong>RESILIENT HEALTH CAPACITY</strong></h2>
+
+      <p style="margin-top:20px;">If the numerator is <strong>THB</strong>, the denominator is Resilient Health Capacity (RHC), which serves as the counterweight. This is not about eliminating risk or pretending costs will stop rising. <em>It is about building capacity in people and organizations to carry the load more effectively.</em></p>
+
+      <p><strong><em>Resilient Health Capacity (RHC)</em></strong> is made of protective, preventative factors to buffer against the storm of THB. These include:</p>
+
+      <div class="rhc-components">
+        <div class="rhc-card">
+          <div class="card-header">SELF-MANAGEMENT</div>
+          <div class="card-body">Coping skills, micro-habits, and discipline to make better choices when no one is watching</div>
+        </div>
+        <div class="rhc-card">
+          <div class="card-header">SUPPORT &amp; CULTURE</div>
+          <div class="card-body">Nudges, influences, trust, and easy access to benefits that remove friction</div>
+        </div>
+        <div class="rhc-card">
+          <div class="card-header">SOCIAL NETWORKS</div>
+          <div class="card-body">Peers and communities that encourage positive choices instead of destructive ones</div>
+        </div>
+        <div class="rhc-card">
+          <div class="card-header">MENTAL FRAMEWORKS</div>
+          <div class="card-body">Growth mindset, resilience, belief in change, and a sense of purpose</div>
+        </div>
+        <div class="rhc-card" style="grid-column: 1 / -1;">
+          <div class="card-header">COMMUNITY FACTORS</div>
+          <div class="card-body">Food security, safety, regular schedules, and flexibility</div>
+        </div>
+      </div>
+
+      <div class="individual-formula">
+        <p><strong><em>Resilient Health Capacity (RHC)</em></strong> is built one person at a time. At the individual level, health burden can be expressed as:</p>
+        <div class="formula-box">B<sub>i</sub> = B<sub>o</sub> &times; e<sup>(&minus;kH<sub>i</sub>)</sup></div>
+        <p>Where H<sub>i</sub> is the Healthy Behavior Index.</p>
+        <p>Even modest improvements in healthy behavior lower the burden exponentially. Those with the greatest initial burdens benefit most from small, sustained changes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Formula for Change Management -->
+  <section>
+    <div class="container">
+      <h2>THE FORMULA FOR CHANGE MANAGEMENT</h2>
+      <p>The challenge is not simply medical, it is human. It's <strong><em>Whole Person Health'care</em></strong>. Healthcare risk is amplified by habits, choices, and environments. The solution lies in meeting people where they are, not with manipulation but with scaffolding and support. <strong><em>Think of three layers working together:</em></strong></p>
+
+      <div class="three-layers">
+        <div class="layer">
+          <div class="layer-number">1.</div>
+          <div class="layer-content">
+            <h4>Support &amp; Culture (Organizational Levers)</h4>
+            <p>Make healthy actions easier than unhealthy ones, normalize positive behavior, and remove stigma. Build defaults that work in people's favor.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-number">2.</div>
+          <div class="layer-content">
+            <h4>Self-Management (Individual Levers)</h4>
+            <p>Encourage employees to win the invisible battles &mdash; the daily choices when no one is looking. Help them shift identity ('I am the type of person who...'), celebrate tiny wins, and build coping strategies.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-number">3.</div>
+          <div class="layer-content">
+            <h4>Active Program Management (APM)</h4>
+            <p>Your programs are changing every day, bringing daily new and emerging challenges and opportunities to improve services, manage costs, and positively affect people's lives. Implementing best practices, building a culture of active stewardship, and applying effective Organizational Leadership and Program Management are essential to both the short- and long-term success of your programs.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="capacity-callout">
+        When organizations and individuals align, Resilient Health Capacity grows. While the storm doesn't go away, the denominator becomes stronger, and programs and people evolve.
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing Thoughts -->
+  <section class="closing">
+    <div class="container">
+      <h2>CLOSING THOUGHTS: FROM BURDEN TO CAPACITY</h2>
+
+      <div class="closing-item">
+        <p><strong>Whole Person Health'care (WPH'c)</strong> will never be simple. Human beings are complicated, and the pressures of modern life are relentless. But the formula shows us a path forward: we cannot control every storm, but we can strengthen our foundation.</p>
+      </div>
+
+      <div class="closing-item">
+        <p><strong>Resilient Health Capacity (RHC)</strong> is not a theory, it is a practice. Every cultural shift, every small behavioral win, every reduction in friction strengthens the denominator. And every gain in the denominator lightens the Total Health Burden.</p>
+      </div>
+
+      <div class="closing-item">
+        <p><strong>Active Program Management (APM)</strong> for organizational leaders means shifting from firefighting to leadership. It means reclaiming time to inspire rather than administrate. For employees, it means rediscovering agency and hope. For organizations, it means healthier, more engaged, and more resilient workforces.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="cta-banner">
+          WE CANNOT STOP THE STORM. BUT WE CAN BUILD THE CAPACITY TO CARRY IT. THAT IS THE HUMAN EQUATION IN WHOLE PERSON HEALTH'CARE.
+        </div>
+        <div class="contact-info">
+          <p>Let's talk more about helping your organization achieve maximum whole person health'care &mdash; contact me today.</p>
+          <h4>CHARLES CARLSON</h4>
+          <p><a href="mailto:charles@benefitintelligence.com">charles@benefitintelligence.com</a></p>
+          <p>480-206-5144</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p><span class="brand">benefit intelligence</span></p>
+  </footer>
+
+</body>
+</html>
